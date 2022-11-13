@@ -3,9 +3,11 @@ package edu.cmu.andrew.apidemo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 public class Response {
     String next;
-    TenorResponse[] results;
+    List<TenorResponse> results;
 
     public Response() {
     }
@@ -18,11 +20,11 @@ public class Response {
         this.next = next;
     }
 
-    public TenorResponse[] getResults() {
-        return this.results;
+    public List<TenorResponse> getResults() {
+        return results;
     }
 
-    public void setResults(TenorResponse[] results) {
+    public void setResults(List<TenorResponse> results) {
         this.results = results;
     }
 }
