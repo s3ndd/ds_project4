@@ -1,4 +1,4 @@
-# Project 4 Task 1 – Interesting Picture App
+# Project 4 Task 2 – Distributed Application and Dashboard
 
 ## Team
 #### Team Member 1
