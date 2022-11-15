@@ -146,20 +146,20 @@ Url: (dashboard url)
 
 #### b. The dashboard displays at least 3 interesting operations analytics. 
 Below is a screenshot of the interesting operations analytics in the dashboard.
+(add reasoning)
 
 - The most popular search keyword
-(screenshot, List top 10 search keyword)
+(screenshot, List top 20 search keyword)
 (screenshot, if we have time, we can generate word cloud.Just a thought. That would be another api....lol, https://github.com/kennycason/kumo)
 
-- Top 5 Copy Choice
-(screenshot, Histogram, xaxis: top 1-5 choice, yaxis: copy times)
+- Top 5 GIFs Search Result
+(screenshot)
 
-
-- User Usage Time (TBD)
-  (screenshot)
-  Average: mins
-  Maximum: mins
-  Minimum: mins
+- Service Response Time
+  (Table lists latest 100 history data)
+  Average: ms
+  Maximum: ms
+  Minimum: ms
 
 - Frequent User Devices
   (screenshot)
@@ -167,6 +167,11 @@ Below is a screenshot of the interesting operations analytics in the dashboard.
   2.Samsung Galaxy S20
   3....
 
+- User Usage Time (TBD)
+  (Date, Time)
+  Average: ms
+  Maximum: ms
+  Minimum: ms
 
 #### c. The dashboard displays formatted full logs.
 
@@ -177,7 +182,6 @@ Below is a screenshot of the formatted full logs in the dashboard.
 ### 7. Deploy the web service to Heroku
 
 Below is a screenshot of the application deployment on the Heroku.
-
 (screenshot)
 
 
