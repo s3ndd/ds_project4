@@ -2,7 +2,6 @@ package edu.cmu.andrew.project4task4webservice.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.cmu.andrew.project4task4webservice.model.ErrorResponse;
-import edu.cmu.andrew.project4task4webservice.model.GIF;
 import edu.cmu.andrew.project4task4webservice.model.GIFsResponse;
 import edu.cmu.andrew.project4task4webservice.model.IResponse;
 import edu.cmu.andrew.project4task4webservice.model.tenor.TenorMediaFormat;
@@ -68,19 +67,14 @@ public class GIFBotService {
     }
 
     private static GIFsResponse buildGIFsResponse(TenorResponse tenorResponse) {
-        List<GIF> gifs = new ArrayList<>();
-        Set<String> tags = new HashSet<>();
+        List<String> gifs = new ArrayList<>();
         for (TenorResult result : tenorResponse.getResults()) {
             TenorMediaFormat mediaFormat = result.getTenorMediaFormats();
             if (mediaFormat != null && mediaFormat.getTenorTinyGif() != null) {
-                gifs.add(new GIF(mediaFormat.getTenorTinyGif().getUrl(), mediaFormat.getTenorTinyGif().getDims()));
-            }
-            List<String> gifTags = result.getTags();
-            if (gifTags != null) {
-                tags.addAll(gifTags);
+                gifs.add(mediaFormat.getTenorTinyGif().getUrl());
             }
         }
 
-        return new GIFsResponse(gifs, tags, HttpServletResponse.SC_OK);
+        return new GIFsResponse(gifs, HttpServletResponse.SC_OK);
     }
 }
