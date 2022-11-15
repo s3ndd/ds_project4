@@ -10,8 +10,8 @@ import okhttp3.ResponseBody;
 import java.io.IOException;
 
 public class GIFProcessor {
-    private final static String GIF_BOT_SERVICE_URL = " https://459c-74-109-237-3.ngrok.io/Project4Task4WebService-1" +
-            ".0-SNAPSHOT/api/v1/gif";
+    private final static String GIF_BOT_SERVICE_URL = "https://ds-project4-gifbot.herokuapp" +
+            ".com/Project4Task4WebService-1.0-SNAPSHOT/api/v1/gif";
     private GIFBotActivity gifBotActivity = null;
 
     private String searchTerm = null;
