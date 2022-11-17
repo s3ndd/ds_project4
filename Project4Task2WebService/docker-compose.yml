@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  picture:
+    image: gifbot:latest
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    restart: always
+    ports:
+      - '8080:8080'
+
+

@@ -1,15 +1,14 @@
 package edu.cmu.andrew.project4task4webservice.web;
 
-import java.io.*;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.tools.javac.util.StringUtils;
-import edu.cmu.andrew.project4task4webservice.model.GIFsResponse;
 import edu.cmu.andrew.project4task4webservice.model.IResponse;
 import edu.cmu.andrew.project4task4webservice.service.GIFBotService;
 import edu.cmu.andrew.project4task4webservice.util.Response;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 @WebServlet(name = "GIFBot", value = "/api/v1/gif")
 public class GIFBotServlet extends HttpServlet {
