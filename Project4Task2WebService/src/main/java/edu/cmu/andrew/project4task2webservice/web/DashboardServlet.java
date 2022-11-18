@@ -3,6 +3,8 @@ package edu.cmu.andrew.project4task2webservice.web;
 import java.io.IOException;
 import java.util.List;
 
+import edu.cmu.andrew.project4task2webservice.model.DeviceInfo;
+import edu.cmu.andrew.project4task2webservice.model.Latency;
 import edu.cmu.andrew.project4task2webservice.service.DashboardService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -53,16 +55,20 @@ public class DashboardServlet extends HttpServlet {
         List<String> popularGIFsURL = dbs.getPopularGIFsURL();
         request.setAttribute("popularGIFsURL", popularGIFsURL);
 
-        //GIFs Service Response Time
-        //average value
-        String avgResponse = dbs.getAvgResponse();
-        request.setAttribute("avgResponse", avgResponse);
-        //a table of latest 100 history data
-
+        //GIFs Service and API Latencies
+        //return object with average, maximum, minimum value, and a table of latest 100 history data
+        Latency serviceLatency = dbs.getServiceLatency();
+        request.setAttribute("serviceLatency", serviceLatency);
+        Latency externalAPILatency = dbs.getExternalAPILatency();
+        request.setAttribute("externalAPILatency", externalAPILatency);
 
         //Frequent User Devices
-        List<String> commonDevice = dbs.getCommonDevice();
-        request.setAttribute("commonDevice", commonDevice);
+        List<DeviceInfo> top10Devices = dbs.getTop10Devices();
+        request.setAttribute("top10Devices", top10Devices);
+
+        //System log
+        List<String> logs = dbs.getLogs();
+        request.setAttribute("logs", logs);
 
         String nextView = "index.jsp";
         RequestDispatcher view = request.getRequestDispatcher(nextView);

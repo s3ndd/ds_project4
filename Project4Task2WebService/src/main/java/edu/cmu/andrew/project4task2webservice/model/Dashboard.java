@@ -11,7 +11,7 @@ public class Dashboard {
 
     private Latency externalAPILatency;
 
-    private DeviceInfo top10Devices;
+    private List<DeviceInfo> top10Devices;
 
     private List<String> logs;
 
@@ -50,11 +50,11 @@ public class Dashboard {
         this.externalAPILatency = externalAPILatency;
     }
 
-    public DeviceInfo getTop10Devices() {
+    public List<DeviceInfo> getTop10Devices() {
         return top10Devices;
     }
 
-    public void setTop10Devices(DeviceInfo top10Devices) {
+    public void setTop10Devices(List<DeviceInfo> top10Devices) {
         this.top10Devices = top10Devices;
     }
 
