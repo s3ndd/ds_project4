@@ -1,11 +1,10 @@
 package edu.cmu.andrew.gifbot;
 
 import android.app.Activity;
+import com.bumptech.glide.RequestBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.ResponseBody;
+import okhttp3.*;
+import okhttp3.internal.http.HttpHeaders;
 
 import java.io.IOException;
 
@@ -47,7 +46,8 @@ public class GIFProcessor {
     private GIFsResponse get(String url, String searchTerm) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
         urlBuilder.addQueryParameter("search", searchTerm);
-        Request request = (new Request.Builder()).url(urlBuilder.toString()).build();
+        Request.Builder requestBuilder = new Request.Builder();
+        Request request = requestBuilder.headers(attachDeviceInfoHeaders()).url(urlBuilder.toString()).build();
         ResponseBody responseBody = new OkHttpClient().newCall(request).execute().body();
         String responseBodyString = responseBody.string();
         System.out.println("Raw response from Tenor:" + responseBodyString);
@@ -56,6 +56,15 @@ public class GIFProcessor {
         System.out.println(giFsResponse);
 
         return giFsResponse;
+    }
+
+    private Headers attachDeviceInfoHeaders() {
+        Headers.Builder builder = new Headers.Builder();
+        builder.add("Manufacture", android.os.Build.MANUFACTURER);
+        builder.add("Brand", android.os.Build.BRAND);
+        builder.add("Model", android.os.Build.MODEL);
+        builder.add("AndroidVersion", android.os.Build.VERSION.RELEASE);
+        return builder.build();
     }
 
 }

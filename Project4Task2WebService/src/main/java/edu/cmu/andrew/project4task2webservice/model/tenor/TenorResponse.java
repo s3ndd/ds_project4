@@ -1,4 +1,4 @@
-package edu.cmu.andrew.project4task4webservice.model.tenor;
+package edu.cmu.andrew.project4task2webservice.model.tenor;
 
 import java.util.List;
 
