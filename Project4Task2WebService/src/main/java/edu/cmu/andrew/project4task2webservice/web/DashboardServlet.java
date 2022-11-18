@@ -1,9 +1,9 @@
-package edu.cmu.andrew.project4task4webservice.web;
+package edu.cmu.andrew.project4task2webservice.web;
 
 import java.io.IOException;
 import java.util.List;
 
-import edu.cmu.andrew.project4task4webservice.service.DashboardService;
+import edu.cmu.andrew.project4task2webservice.service.DashboardService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;

@@ -8,7 +8,7 @@ ENV JAVA_OPTS="-Xmx300m"
 EXPOSE 8080
 
 # Copy in our ROOT.war to the right place in the container
-COPY target/Project4Task4WebService-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/
+COPY target/Project4Task2WebService-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/
 
 # LOCALHOST:  Run catalina in the container
 # Comment the next line out if running on Heroku

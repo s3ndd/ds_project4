@@ -9,5 +9,19 @@
         </list>
       </option>
     </inspection_tool>
+    <inspection_tool class="IncorrectHttpHeaderInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="customHeaders">
+        <set>
+          <option value="manufacture" />
+          <option value="brand" />
+          <option value="model" />
+          <option value="androidVersion" />
+          <option value="Manufacture" />
+          <option value="Brand" />
+          <option value="Model" />
+          <option value="AndroidVersion" />
+        </set>
+      </option>
+    </inspection_tool>
   </profile>
 </component>

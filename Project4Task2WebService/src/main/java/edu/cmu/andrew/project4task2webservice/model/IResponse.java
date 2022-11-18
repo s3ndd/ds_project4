@@ -1,4 +1,4 @@
-package edu.cmu.andrew.project4task4webservice.model;
+package edu.cmu.andrew.project4task2webservice.model;
 
 public interface IResponse {
     int getStatusCode();
