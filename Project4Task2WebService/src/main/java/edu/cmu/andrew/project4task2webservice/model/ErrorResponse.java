@@ -1,6 +1,6 @@
-package edu.cmu.andrew.project4task4webservice.model;
+package edu.cmu.andrew.project4task2webservice.model;
 
-public class ErrorResponse implements IResponse{
+public class ErrorResponse implements IResponse {
 
     private String message;
 
