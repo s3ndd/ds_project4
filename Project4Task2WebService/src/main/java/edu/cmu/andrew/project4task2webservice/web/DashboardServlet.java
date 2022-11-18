@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "GIFBot", value = "/api/v1/dashboard")
+@WebServlet(name = "Dashboard", value = "/api/v1/dashboard")
 public class DashboardServlet extends HttpServlet {
     private DashboardService dashboardService;
 
