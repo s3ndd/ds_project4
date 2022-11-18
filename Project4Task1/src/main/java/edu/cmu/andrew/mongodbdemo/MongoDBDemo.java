@@ -16,8 +16,8 @@ import java.util.Scanner;
 
 public class MongoDBDemo {
     public static void main(String[] args) {
-        ConnectionString connectionString = new ConnectionString("mongodb+srv://gifbot:uecGp9EB7jotYwct@cluster0" +
-                ".awr7ggu.mongodb.net/?retryWrites=true&w=majority");
+//        "mongodb+srv://gifbot:uecGp9EB7jotYwct@cluster0" +".awr7ggu.mongodb.net/?retryWrites=true&w=majority"
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://dsteamproject4:Cmuds@4project@cluster0.wm5whov.mongodb.net/?retryWrites=true&w=majority");
         MongoClientSettings settings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
                 .serverApi(ServerApi.builder()

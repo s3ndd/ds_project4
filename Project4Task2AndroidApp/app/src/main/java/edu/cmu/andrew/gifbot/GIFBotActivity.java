@@ -65,6 +65,7 @@ public class GIFBotActivity extends AppCompatActivity {
         }
     }
 
+
     private void displayGIFs(String[] gifs) {
         ListView listView = findViewById(R.id.gifListView);
         listView.setAdapter(new GIFListAdapter(
