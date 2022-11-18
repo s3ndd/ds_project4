@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>edu.cmu.andrew</groupId>
-    <artifactId>Project4Task4WebService</artifactId>
+    <artifactId>Project4Task2WebService</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>Project4Task4WebService</name>
+    <name>Project4Task2WebService</name>
     <packaging>war</packaging>
 
     <properties>
