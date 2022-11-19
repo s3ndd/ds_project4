@@ -1,3 +1,13 @@
+/**
+ * Co-Author: Sheldon Shi, I-Wen Chou
+ * AndrewID: lijuns, ichou
+ * Email: lijuns@andrew.cmu.edu, ichou@andrew.cmu.edu
+ * ProjectTask: Project4Task2
+ *
+ * This is a class for request in servlet.
+ *
+ */
+
 package edu.cmu.andrew.project4task2webservice.util;
 
 import edu.cmu.andrew.project4task2webservice.model.DeviceInfo;
@@ -12,6 +22,7 @@ public class Request {
      *
      * @return a string request id
      */
+    //generate new request ID
     public static String generateRequestID() {
         return UUID.randomUUID().toString();
     }
@@ -23,7 +34,7 @@ public class Request {
      * @return the DeviceInfo object
      */
     public static DeviceInfo fetchRequestDevice(HttpServletRequest request) {
-
+        //return device information with details
         return new DeviceInfo(request.getHeader("Manufacture"),
                 request.getHeader("Brand"),
                 request.getHeader("Model"),

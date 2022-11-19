@@ -1,3 +1,13 @@
+/**
+ * Co-Author: Sheldon Shi, I-Wen Chou
+ * AndrewID: lijuns, ichou
+ * Email: lijuns@andrew.cmu.edu, ichou@andrew.cmu.edu
+ * ProjectTask: Project4Task2
+ *
+ * This is a class for logging repository(Mongo database).
+ *
+ */
+
 package edu.cmu.andrew.project4task2webservice.repository;
 
 import com.mongodb.MongoClientSettings;
