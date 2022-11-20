@@ -17,7 +17,6 @@ public class TenorResponseInfo {
     private LocalTime time;
 
 
-
     public TenorResponseInfo() {
     }
 
@@ -60,13 +59,4 @@ public class TenorResponseInfo {
         this.time = time;
     }
 
-    @Override
-    public String toString() {
-        return "TenorResponseInfo{" +
-                "tenorResponseBody='" + tenorResponseBody + '\'' +
-                ", tenorResponseStatusCode=" + tenorResponseStatusCode +
-                ", date=" + date +
-                ", time=" + time +
-                '}';
-    }
 }

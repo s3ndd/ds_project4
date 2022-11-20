@@ -40,13 +40,4 @@ public class ClientRequestInfo {
     public void setTime(LocalTime time) {
         this.time = time;
     }
-
-    @Override
-    public String toString() {
-        return "ClientRequestInfo{" +
-                "searchTerm='" + searchTerm + '\'' +
-                ", date=" + date +
-                ", time=" + time +
-                '}';
-    }
 }

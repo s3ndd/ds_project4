@@ -53,13 +53,4 @@ public class TenorRequestInfo {
         this.time = time;
     }
 
-    @Override
-    public String toString() {
-        return "TenorRequestInfo{" +
-                "baseUrl='" + baseUrl + '\'' +
-                ", uri='" + uri + '\'' +
-                ", date=" + date +
-                ", time=" + time +
-                '}';
-    }
 }

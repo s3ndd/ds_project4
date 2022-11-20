@@ -89,17 +89,4 @@ public class LogEvent {
         this.tenorAPILatency = tenorAPILatency;
     }
 
-    @Override
-    public String toString() {
-        return "LogEvent{" +
-                "requestID='" + requestID + '\'' +
-                ", clientRequestInfo=" + clientRequestInfo +
-                ", requestDeviceInfo=" + requestDeviceInfo +
-                ", clientResponseInfo=" + clientResponseInfo +
-                ", serviceLatency=" + serviceLatency +
-                ", tenorRequestInfo=" + tenorRequestInfo +
-                ", tenorResponseInfo=" + tenorResponseInfo +
-                ", tenorAPILatency=" + tenorAPILatency +
-                '}';
-    }
 }

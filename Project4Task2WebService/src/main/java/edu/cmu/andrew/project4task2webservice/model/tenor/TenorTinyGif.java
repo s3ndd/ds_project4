@@ -27,12 +27,4 @@ public class TenorTinyGif {
     public void setDims(Integer[] dims) {
         this.dims = dims;
     }
-
-    @Override
-    public String toString() {
-        return "TinyGif{" +
-                "url='" + url + '\'' +
-                ", dims=" + Arrays.toString(dims) +
-                '}';
-    }
 }

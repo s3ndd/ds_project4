@@ -19,11 +19,4 @@ public class TenorMediaFormat {
     public void setTenorTinyGif(TenorTinyGif tenorTinyGif) {
         this.tenorTinyGif = tenorTinyGif;
     }
-
-    @Override
-    public String toString() {
-        return "MediaFormat{" +
-                "tinyGif=" + tenorTinyGif +
-                '}';
-    }
 }
