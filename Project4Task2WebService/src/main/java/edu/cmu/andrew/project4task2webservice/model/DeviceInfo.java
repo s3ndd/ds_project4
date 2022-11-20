@@ -49,13 +49,4 @@ public class DeviceInfo {
         this.androidVersion = androidVersion;
     }
 
-    @Override
-    public String toString() {
-        return "DeviceInfo{" +
-                "manufacture='" + manufacture + '\'' +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", androidVersion='" + androidVersion + '\'' +
-                '}';
-    }
 }

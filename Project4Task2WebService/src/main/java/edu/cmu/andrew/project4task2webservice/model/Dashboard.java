@@ -3,35 +3,35 @@ package edu.cmu.andrew.project4task2webservice.model;
 import java.util.List;
 
 public class Dashboard {
-    private List<String> top20SearchWords;
+    private List<String> topSearchWords;
 
-    private List<String> top20GIFs;
+    private List<String> topGIFs;
 
     private Latency serviceLatency;
 
     private Latency externalAPILatency;
 
-    private DeviceInfo top10Devices;
+    private TopDeviceInfo topDevices;
 
-    private List<String> logs;
+    private List<SystemLog> logs;
 
     public Dashboard() {
     }
 
-    public List<String> getTop20SearchWords() {
-        return top20SearchWords;
+    public List<String> getTopSearchWords() {
+        return topSearchWords;
     }
 
-    public void setTop20SearchWords(List<String> top20SearchWords) {
-        this.top20SearchWords = top20SearchWords;
+    public void setTopSearchWords(List<String> topSearchWords) {
+        this.topSearchWords = topSearchWords;
     }
 
-    public List<String> getTop20GIFs() {
-        return top20GIFs;
+    public List<String> getTopGIFs() {
+        return topGIFs;
     }
 
-    public void setTop20GIFs(List<String> top20GIFs) {
-        this.top20GIFs = top20GIFs;
+    public void setTopGIFs(List<String> topGIFs) {
+        this.topGIFs = topGIFs;
     }
 
     public Latency getServiceLatency() {
@@ -50,19 +50,19 @@ public class Dashboard {
         this.externalAPILatency = externalAPILatency;
     }
 
-    public DeviceInfo getTop10Devices() {
-        return top10Devices;
+    public TopDeviceInfo getTopDevices() {
+        return topDevices;
     }
 
-    public void setTop10Devices(DeviceInfo top10Devices) {
-        this.top10Devices = top10Devices;
+    public void setTopDevices(TopDeviceInfo topDevices) {
+        this.topDevices = topDevices;
     }
 
-    public List<String> getLogs() {
+    public List<SystemLog> getLogs() {
         return logs;
     }
 
-    public void setLogs(List<String> logs) {
+    public void setLogs(List<SystemLog> logs) {
         this.logs = logs;
     }
 }

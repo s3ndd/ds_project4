@@ -24,14 +24,5 @@ public class TenorResponse {
     public void setResults(List<TenorResult> results) {
         this.results = results;
     }
-
-
-    @Override
-    public String toString() {
-        return "TenorResponse{" +
-                "next='" + next + '\'' +
-                ", results=" + results +
-                '}';
-    }
 }
 

@@ -9,9 +9,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
-@WebServlet(name = "DashboardServlet",
-        urlPatterns = {"/getGIFs"})
+@WebServlet(name = "DashboardServlet", urlPatterns = {"/dashboard"})
 public class DashboardServlet extends HttpServlet {
+
+    private final static String DASHBOARD_PAGE = "index.jsp";
 
     DashboardService dbs = null;  // The "business model" for this app
 
@@ -26,46 +27,25 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("doctype", getDocType(request.getHeader("User-Agent")));
+        request.setAttribute("dashboard", dbs.generateDashboard());
 
-        // determine what type of device our user is
-        String ua = request.getHeader("User-Agent");
+        request.getRequestDispatcher(DASHBOARD_PAGE).forward(request, response);
+    }
 
-        boolean mobile;
-        // prepare the appropriate DOCTYPE for the view pages
-        if (ua != null && ((ua.indexOf("Android") != -1) || (ua.indexOf("iPhone") != -1))) {
-            mobile = true;
+    // Reference: https://github.com/CMU-Heinz-95702/Lab2-InterestingPicture/blob/master/InterestingPictureServlet.java
+    private static String getDocType(String userAgent) {
+        if (userAgent != null && ((userAgent.contains("Android")) || (userAgent.contains("iPhone")))) {
             /*
              * This is the latest XHTML Mobile doctype. To see the difference it
              * makes, comment it out so that a default desktop doctype is used
              * and view on an Android or iPhone.
              */
-            request.setAttribute("doctype", "<!DOCTYPE html PUBLIC \"-//WAPFORUM//DTD XHTML Mobile 1.2//EN\" \"http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd\">");
+            return "<!DOCTYPE html PUBLIC \"-//WAPFORUM//DTD XHTML Mobile 1.2//EN\" \"http://www.openmobilealliance" +
+                    ".org/tech/DTD/xhtml-mobile12.dtd\">";
         } else {
-            mobile = false;
-            request.setAttribute("doctype", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">");
+            return "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3" +
+                    ".org/TR/html4/loose.dtd\">";
         }
-
-        //The most popular search keyword
-        List<String> popularKeyword = dbs.getPopularKeyword();
-        request.setAttribute("popularKeyword", popularKeyword);
-
-        //Top 5 GIFs Search Result
-        List<String> popularGIFsURL = dbs.getPopularGIFsURL();
-        request.setAttribute("popularGIFsURL", popularGIFsURL);
-
-        //GIFs Service Response Time
-        //average value
-        String avgResponse = dbs.getAvgResponse();
-        request.setAttribute("avgResponse", avgResponse);
-        //a table of latest 100 history data
-
-
-        //Frequent User Devices
-        List<String> commonDevice = dbs.getCommonDevice();
-        request.setAttribute("commonDevice", commonDevice);
-
-        String nextView = "index.jsp";
-        RequestDispatcher view = request.getRequestDispatcher(nextView);
-        view.forward(request, response);
     }
 }
