@@ -20,7 +20,7 @@ The returned GIF link will be displayed under each GIF.
 
 ## Distributed Application Requirements
 ### 1. Implement a native Android application
-The name of the native Android application project in Android Studio is: **Project4Task2AndroidApp** .
+The name of the native Android application project in Android Studio is: **Project4Task2AndroidApp**.  
 The project folder is: **Project4Task2AndroidApp**
 
 
