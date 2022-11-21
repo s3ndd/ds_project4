@@ -36,21 +36,34 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class LoggingRepository {
+    // define the database name
     private static String DATABASE = "DsProject4Task2DB";
 
+    // define the collection name
     private static String COLLECTION = "GIFBotLogEvent";
 
+    // declare a MongoDatabase variable
     private MongoDatabase database;
 
+    // initialize the LoggingRepository
     public LoggingRepository() {
         this.database = MongoDBClient.getInstance().getClient().getDatabase(DATABASE);
     }
 
+    /**
+     * upsert the logEvent data to the MongoDB
+     *
+     * @param logEvent
+     * @return
+     */
     public Document upsert(LogEvent logEvent) {
+        // define the filer with _id
         Bson filter = Filters.eq("_id", logEvent.getRequestID());
+        // set up the find and update option
         FindOneAndUpdateOptions upsertOptions = new FindOneAndUpdateOptions();
         upsertOptions.returnDocument(ReturnDocument.AFTER);
         upsertOptions.upsert(true);
+        // do the inert or update
         return getCollection().findOneAndUpdate(filter, toBson(logEvent), upsertOptions);
     }
 
@@ -77,10 +90,10 @@ public class LoggingRepository {
      */
     public List<String> getTopGIFs(int count) {
         List<String> topGIFs = new ArrayList<>();
-
+        // define the project
         Bson clientResponseCollection = project(fields(Projections.excludeId(), include(
                 "client_response")));
-
+        // run the aggregate query
         getCollection().aggregate(
                 Arrays.asList(
                         clientResponseCollection,
@@ -90,7 +103,8 @@ public class LoggingRepository {
                         limit(count)
                 )
         ).forEach(document -> {
-            topGIFs.add(document.get("_id").toString());
+            // add the gif url to the list
+            topGIFs.add(document.get("_id") != null ? document.get("_id").toString() : "");
         });
         return topGIFs;
     }
@@ -107,6 +121,7 @@ public class LoggingRepository {
      */
     public List<String> getTopSearchWords(int count) {
         List<String> topSearchWords = new ArrayList<>();
+        // run the aggregate query
         getCollection().aggregate(
                 Arrays.asList(
                         group("$client_request.searchTerm", Accumulators.sum("count", 1)),
@@ -114,7 +129,8 @@ public class LoggingRepository {
                         limit(count)
                 )
         ).forEach(document -> {
-            topSearchWords.add(document.get("_id").toString());
+            // add the word to the list
+            topSearchWords.add(document.get("_id") != null ? document.get("_id").toString() : "");
         });
         return topSearchWords;
     }
@@ -137,6 +153,7 @@ public class LoggingRepository {
      * @return a Latency object
      */
     public Latency getServiceLatency(int count) {
+        // run the aggregate query
         Document document = getCollection().aggregate(
                 Arrays.asList(
                         group(null,
@@ -148,16 +165,24 @@ public class LoggingRepository {
         ).first();
         Latency latency = new Latency();
         if (document != null) {
-            latency.setAverage(Double.valueOf(document.get("latencyAvg").toString()));
-            latency.setMaximum(Double.valueOf(document.get("latencyMax").toString()));
-            latency.setMinimum(Double.valueOf(document.get("latencyMin").toString()));
+            try {
+                // write the latency data to the object
+                latency.setAverage(Double.valueOf(document.get("latencyAvg").toString()));
+                latency.setMaximum(Double.valueOf(document.get("latencyMax").toString()));
+                latency.setMinimum(Double.valueOf(document.get("latencyMin").toString()));
+            } catch (Exception e) {
+                latency.setAverage(0.0);
+                latency.setMaximum(0.0);
+                latency.setMinimum(0.0);
+            }
         }
 
-
+        // define the project
         getCollection().find().projection(fields(include("service_latency"))).sort(new BasicDBObject("created_at",
                 -1)).limit(count).forEach(doc -> {
             Object obj = doc.get("service_latency");
             if (obj != null) {
+                // add the record to the list
                 latency.getRecentRecords().add(Double.valueOf(obj.toString()));
             }
         });
@@ -183,6 +208,7 @@ public class LoggingRepository {
      * @return a Latency object
      */
     public Latency getExternalAPILatency(int count) {
+        // run the aggregate query
         Document document = getCollection().aggregate(
                 Arrays.asList(
                         group(null,
@@ -194,15 +220,25 @@ public class LoggingRepository {
         ).first();
         Latency latency = new Latency();
         if (document != null) {
-            latency.setAverage(Double.valueOf(document.get("latencyAvg").toString()));
-            latency.setMaximum(Double.valueOf(document.get("latencyMax").toString()));
-            latency.setMinimum(Double.valueOf(document.get("latencyMin").toString()));
+            // add the latency data
+            try {
+                latency.setAverage(Double.valueOf(document.get("latencyAvg").toString()));
+                latency.setMaximum(Double.valueOf(document.get("latencyMax").toString()));
+                latency.setMinimum(Double.valueOf(document.get("latencyMin").toString()));
+            } catch (Exception e) {
+                latency.setAverage(0.0);
+                latency.setMaximum(0.0);
+                latency.setMinimum(0.0);
+            }
+
         }
 
+        // define the project
         getCollection().find().projection(fields(include("external_api_latency"))).sort(new BasicDBObject("created_at",
                 -1)).limit(count).forEach(doc -> {
             Object obj = doc.get("external_api_latency");
             if (obj != null) {
+                // add the latency data to the list
                 latency.getRecentRecords().add(Double.valueOf(obj.toString()));
             }
         });
@@ -271,7 +307,7 @@ public class LoggingRepository {
                         limit(count)
                 )
         ).forEach(document -> {
-            deviceInfo.getManufacture().add(document.get("_id").toString());
+            deviceInfo.getManufacture().add(document.get("_id") != null ? document.get("_id").toString() : "");
         });
 
         /*
@@ -288,7 +324,7 @@ public class LoggingRepository {
                         limit(count)
                 )
         ).forEach(document -> {
-            deviceInfo.getBrand().add(document.get("_id").toString());
+            deviceInfo.getBrand().add(document.get("_id") != null ? document.get("_id").toString() : "");
         });
 
         /*
@@ -309,7 +345,7 @@ public class LoggingRepository {
                         limit(count)
                 )
         ).forEach(document -> {
-            deviceInfo.getModel().add(document.get("_id").toString());
+            deviceInfo.getModel().add(document.get("_id") != null ? document.get("_id").toString() : "");
         });
         /*
          androidVersion:
@@ -329,7 +365,7 @@ public class LoggingRepository {
                         limit(count)
                 )
         ).forEach(document -> {
-            deviceInfo.getAndroidVersion().add(document.get("_id").toString());
+            deviceInfo.getAndroidVersion().add(document.get("_id") != null ? document.get("_id").toString() : "");
         });
         return deviceInfo;
     }
