@@ -1,13 +1,22 @@
+/**
+ * Co-Author: Sheldon Shi, I-Wen Chou
+ * AndrewID: lijuns, ichou
+ * Email: lijuns@andrew.cmu.edu, ichou@andrew.cmu.edu
+ * ProjectTask: Project4Task2
+ * <p>
+ * This is a class for dashboard servlet.
+ */
+
 package edu.cmu.andrew.project4task2webservice.web;
 
-import java.io.IOException;
-import java.util.List;
-
 import edu.cmu.andrew.project4task2webservice.service.DashboardService;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 @WebServlet(name = "DashboardServlet", urlPatterns = {"/dashboard"})
 public class DashboardServlet extends HttpServlet {
@@ -41,10 +50,11 @@ public class DashboardServlet extends HttpServlet {
              * makes, comment it out so that a default desktop doctype is used
              * and view on an Android or iPhone.
              */
-            return "<!DOCTYPE html PUBLIC \"-//WAPFORUM//DTD XHTML Mobile 1.2//EN\" \"http://www.openmobilealliance" +
+            return "<!DOCTYPE html PUBLIC \"-// WAPFORUM// DTD XHTML Mobile 1.2// EN\" \"http://www" +
+                    ".openmobilealliance" +
                     ".org/tech/DTD/xhtml-mobile12.dtd\">";
         } else {
-            return "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3" +
+            return "<!DOCTYPE HTML PUBLIC \"-// W3C// DTD HTML 4.01 Transitional// EN\" \"http://www.w3" +
                     ".org/TR/html4/loose.dtd\">";
         }
     }

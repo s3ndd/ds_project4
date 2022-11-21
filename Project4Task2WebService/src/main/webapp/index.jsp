@@ -1,3 +1,7 @@
+<%--Co-Author: Sheldon Shi, I-Wen Chou--%>
+<%--AndrewID: lijuns, ichou--%>
+<%--Email: lijuns@andrew.cmu.edu, ichou@andrew.cmu.edu--%>
+<%--ProjectTask: Project4Task2--%>
 <%@ page import="java.util.List" %>
 <%@ page import="edu.cmu.andrew.project4task2webservice.model.Dashboard" %>
 <%@ page import="edu.cmu.andrew.project4task2webservice.model.TopDeviceInfo" %>

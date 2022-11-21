@@ -1,19 +1,32 @@
+/**
+ * Co-Author: Sheldon Shi, I-Wen Chou
+ * AndrewID: lijuns, ichou
+ * Email: lijuns@andrew.cmu.edu, ichou@andrew.cmu.edu
+ * ProjectTask: Project4Task2
+ * <p>
+ * This is a class for logging repository(Mongo database).
+ */
+
 package edu.cmu.andrew.project4task2webservice.repository;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.*;
-import edu.cmu.andrew.project4task2webservice.model.*;
+import edu.cmu.andrew.project4task2webservice.model.Latency;
+import edu.cmu.andrew.project4task2webservice.model.LogEvent;
+import edu.cmu.andrew.project4task2webservice.model.SystemLog;
+import edu.cmu.andrew.project4task2webservice.model.TopDeviceInfo;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import static com.mongodb.client.model.Aggregates.*;
 import static com.mongodb.client.model.Projections.fields;
@@ -143,7 +156,10 @@ public class LoggingRepository {
 
         getCollection().find().projection(fields(include("service_latency"))).sort(new BasicDBObject("created_at",
                 -1)).limit(count).forEach(doc -> {
-            latency.getRecentRecords().add(Double.valueOf(doc.get("service_latency").toString()));
+            Object obj = doc.get("service_latency");
+            if (obj != null) {
+                latency.getRecentRecords().add(Double.valueOf(obj.toString()));
+            }
         });
 
         return latency;
@@ -185,7 +201,10 @@ public class LoggingRepository {
 
         getCollection().find().projection(fields(include("external_api_latency"))).sort(new BasicDBObject("created_at",
                 -1)).limit(count).forEach(doc -> {
-            latency.getRecentRecords().add(Double.valueOf(doc.get("external_api_latency").toString()));
+            Object obj = doc.get("external_api_latency");
+            if (obj != null) {
+                latency.getRecentRecords().add(Double.valueOf(obj.toString()));
+            }
         });
         return latency;
     }
@@ -324,12 +343,22 @@ public class LoggingRepository {
         getCollection().find().sort(new BasicDBObject("created_at", -1)).limit(count).forEach(document -> {
             // public SystemLog(String clientRequest, String clientResponse, String clientDevice, String
             // externalAPIRequest, String externalAPIResponse)
+            String clientRequest = document.get("client_request") != null ?
+                    document.get("client_request").toString() : "";
+            String clientResponse = document.get("client_response") != null ?
+                    document.get("client_response").toString() : "";
+            String clientDevice = document.get("client_device") != null ? document.get("client_device").toString() : "";
+            String apiRequest = document.get("external_api_request") != null ?
+                    document.get("external_api_request").toString() : "";
+            String apiResponse = document.get("external_api_response") != null ?
+                    document.get("external_api_response").toString() : "";
+
             SystemLog systemLog = new SystemLog(
-                    document.get("client_request").toString(),
-                    document.get("client_response").toString(),
-                    document.get("client_device").toString(),
-                    document.get("external_api_request").toString(),
-                    document.get("external_api_response").toString()
+                    clientRequest,
+                    clientResponse,
+                    clientDevice,
+                    apiRequest,
+                    apiResponse
             );
             logs.add(systemLog);
         });
