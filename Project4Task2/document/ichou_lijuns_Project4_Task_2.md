@@ -267,8 +267,9 @@ import com.mongodb.client.MongoClients;
 
 public class MongoDBClient {
     // mongodb connecting string
-    private final static String CONNECTION_STRING = "mongodb+srv://dsteamproject4:JyHsGiSpAuU44rrL@cluster0.y3xuxkb" +
-            ".mongodb.net/?retryWrites=true&w=majority";
+    private final static String CONNECTION_STRING = "mongodb://dsteamproject4:JyHsGiSpAuU44rrL@ac-3jlcg4c-shard-00-01" +
+        ".y3xuxkb.mongodb.net:27017,ac-3jlcg4c-shard-00-02.y3xuxkb.mongodb.net:27017,ac-3jlcg4c-shard-00-00" +
+        ".y3xuxkb.mongodb.net:27017/myFirstDatabase?w=majority&retryWrites=true&tls=true&authMechanism=SCRAM-SHA-1";
 
     // create instance of MongoDBClient
     private static MongoDBClient instance = null;
