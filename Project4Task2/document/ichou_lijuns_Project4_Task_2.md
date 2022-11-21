@@ -73,7 +73,7 @@ The search method makes this request using **OkHttpClient** and parses the retur
 
 #### e. Displays new information to the user
 
-Below is the screen shot after the five GIFs has been returned.
+Below is the screen shot after the GIFs has been returned.
 
 ![Screenshot_20221121-103246_GIFBot.jpg](_resources/Screenshot_20221121-103246_GIFBot.jpg)
 
