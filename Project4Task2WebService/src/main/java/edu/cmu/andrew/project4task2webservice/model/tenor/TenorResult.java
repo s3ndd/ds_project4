@@ -3,9 +3,8 @@
  * AndrewID: lijuns, ichou
  * Email: lijuns@andrew.cmu.edu, ichou@andrew.cmu.edu
  * ProjectTask: Project4Task2
- *
+ * <p>
  * This is a class for tenor result with format, content and tags.
- *
  */
 
 package edu.cmu.andrew.project4task2webservice.model.tenor;
@@ -18,63 +17,63 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public
 class TenorResult {
-    //identification
+    // identification
     String id;
-    //Tenor media format
+    // Tenor media format
     @JsonProperty("media_formats")
     TenorMediaFormat tenorMediaFormats;
-    //tenor result content
+    // tenor result content
     @JsonProperty("content_description")
     String contentDescription;
 
-    //tenor result tags
+    // tenor result tags
     List<String> tags;
 
-    //constructor of TenorResult
+    // constructor of TenorResult
     public TenorResult() {
     }
 
-    //get identification
+    // get identification
     public String getId() {
         return this.id;
     }
 
-    //set identification
+    // set identification
     public void setId(String id) {
         this.id = id;
     }
 
-    //get tenor result content
+    // get tenor result content
     @JsonProperty("content_description")
     public String getContentDescription() {
         return this.contentDescription;
     }
 
-    //set tenor result content
+    // set tenor result content
     @JsonProperty("content_description")
     public void setContentDescription(String contentDescription) {
         this.contentDescription = contentDescription;
     }
 
-    //get tenor result tags
+    // get tenor result tags
     @JsonProperty("tags")
     public List<String> getTags() {
         return tags;
     }
 
-    //set tenor result tags
+    // set tenor result tags
     @JsonProperty("tags")
     public void setTags(List<String> tags) {
         this.tags = tags;
     }
 
-    //get tenor media format
+    // get tenor media format
     @JsonProperty("media_formats")
     public TenorMediaFormat getTenorMediaFormats() {
         return tenorMediaFormats;
     }
 
-    //set tenor media format
+    // set tenor media format
     @JsonProperty("media_formats")
     public void setTenorMediaFormats(TenorMediaFormat tenorMediaFormats) {
         this.tenorMediaFormats = tenorMediaFormats;

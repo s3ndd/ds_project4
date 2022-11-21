@@ -1,100 +1,264 @@
+<%--Co-Author: Sheldon Shi, I-Wen Chou--%>
+<%--AndrewID: lijuns, ichou--%>
+<%--Email: lijuns@andrew.cmu.edu, ichou@andrew.cmu.edu--%>
+<%--ProjectTask: Project4Task2--%>
 <%@ page import="java.util.List" %>
+<%@ page import="edu.cmu.andrew.project4task2webservice.model.Dashboard" %>
+<%@ page import="edu.cmu.andrew.project4task2webservice.model.TopDeviceInfo" %>
 <%@ page import="edu.cmu.andrew.project4task2webservice.model.Latency" %>
-<%@ page import="edu.cmu.andrew.project4task2webservice.model.DeviceInfo" %>
-<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="edu.cmu.andrew.project4task2webservice.model.SystemLog" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%= request.getAttribute("doctype") %>
 
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Interesting Picture</title>
-    </head>
-    <body>
-        <h1>GIFBot Dashboard</h1>
-<%--        Interesting analysis 1--%>
-        <h2>Top Twenty Popular Keywords</h2>
-        <%--list most popular searching keywords, top 20--%>
-        <h3>
-            <% List<String> popularKeyword = (List<String>)request.getAttribute("popularKeyword");%>
-            <% for(int i = 0; i< popularKeyword.size(); i++){ %>
-            <%System.out.println((i+1) + ". " + popularKeyword.get(i)); %><br/>
-            <%}%>
-        </h3>
-<%--        Interesting analysis 2--%>
-        <h2>Top Twenty GIFs Search Result</h2>
-        <%--list most popular return GIF results, top 20--%>
-        <h3>
-            <% List<String> popularGIFsURL = (List<String>)request.getAttribute("popularGIFsURL");%>
-            <% for(int i = 0; i< popularGIFsURL.size(); i++){ %>
-            <%System.out.println((i+1) + ". "); %><img src="<%=popularGIFsURL.get(i)%>" height="200">
-            <%}%>
-        </h3>
-<%--        Interesting analysis 3--%>
-        <h2>GIFs Service Response Time</h2>
-        <% Latency serviceLatency = (Latency) request.getAttribute("serviceLatency");%>
-        <%--Avg., Max., and Min. of service latency--%>
-        <h3>Service Latency</h3>
-            <p>Average Response Time: <%= serviceLatency.getAverage()%></p>
-            <p>maximum Response Time: <%= serviceLatency.getMaximum()%></p>
-            <p>minimum Response Time: <%= serviceLatency.getMinimum()%></p>
-        <h3>Service Latency Log</h3>
-             <%--list latest data of service latency--%>
-            <table>
-                <% List<Long> ServiceRecentRecords = serviceLatency.getRecentRecords(); %>
-                <tr>Latest 100 History Data</tr>
-                    <th>ID</th>
-                    <th>Data</th>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>GIFBot Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>GIFBot Dashboard</h1>
+        </div>
+    </div>
+    <% if (request.getAttribute("dashboard") == null) {%>
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-danger" role="alert">
+                Failed to generate the GIFBot dashboard! Please try again!
+            </div>
+        </div>
+    </div>
+    <% } else { %>
+    <% Dashboard dashboard = (Dashboard) request.getAttribute("dashboard"); %>
+    <div class="row">
+        <div class="col-2">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Top Five Popular Keywords</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (String word : dashboard.getTopSearchWords()) { %>
+                <tr>
+                    <td><%= word %>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-5">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Top Five Popular GIFs</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (String gifUrl : dashboard.getTopGIFs()) { %>
+                <tr>
+                    <td><%= gifUrl %>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-5">
+            <% TopDeviceInfo topDevices = dashboard.getTopDevices(); %>
+            <div class="row">
+                <div class="col-3">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Top Mobile Manufacture</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for (int i = 0; i < topDevices.getManufacture().size(); i++) { %>
+                        <tr>
+                            <td><%= topDevices.getManufacture().get(i) %>
+                            </td>
+                        </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-2">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Top Mobile Brand</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for (int i = 0; i < topDevices.getBrand().size(); i++) { %>
+                        <tr>
+                            <td><%= topDevices.getBrand().get(i) %>
+                            </td>
+                        </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-4">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Top Mobile Model</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for (int i = 0; i < topDevices.getModel().size(); i++) { %>
+                        <tr>
+                            <td><%= topDevices.getModel().get(i) %>
+                            </td>
+                        </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-2">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Top Android Version</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% for (int i = 0; i < topDevices.getAndroidVersion().size(); i++) { %>
+                        <tr>
+                            <td><%= topDevices.getAndroidVersion().get(i) %>
+                            </td>
+                        </tr>
+                        <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <% Latency serviceLatency = dashboard.getServiceLatency(); %>
+        <div class="col">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Service Latency</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><strong>Average:</strong> <%=serviceLatency.getAverage()%> ms</td>
                 </tr>
                 <tr>
-                    <% for(int i = 0; i< ServiceRecentRecords.size(); i++){ %>
-                    <td><%System.out.println(i+1);%></td>
-                    <td><%= ServiceRecentRecords.get(i)%></td>
-                    <%}%>
-                </tr>
-            </table>
-        <% Latency externalAPILatency = (Latency) request.getAttribute("externalAPILatency");%>
-        <%--Avg., Max., and Min. of API latency--%>
-        <h3>API Latency</h3>
-            <p>Average Response Time: <%= externalAPILatency.getAverage()%></p>
-            <p>maximum Response Time: <%= externalAPILatency.getMaximum()%></p>
-            <p>minimum Response Time: <%= externalAPILatency.getMinimum()%></p>
-        <h3>API Latency Log</h3>
-            <%--list latest data of API latency--%>
-            <table>
-                <% List<Long> APIRecentRecords = externalAPILatency.getRecentRecords(); %>
-                <tr>Latest 100 History Data</tr>
-                    <th>ID</th>
-                    <th>Data</th>
+                    <td><strong>Maximum:</strong> <%=serviceLatency.getMaximum()%> ms</td>
                 </tr>
                 <tr>
-                    <% for(int i = 0; i< APIRecentRecords.size(); i++){ %>
-                    <td><%System.out.println(i+1);%></td>
-                    <td><%= APIRecentRecords.get(i)%></td>
-                    <%}%>
+                    <td><strong>Minimum:</strong> <%=serviceLatency.getMinimum()%> ms</td>
                 </tr>
+                </tbody>
             </table>
-<%--        Interesting analysis 4--%>
-        <h2>Frequent User Devices</h2>
-        <%--list most popular user devices, top 10--%>
-        <h3>
-            <% List<DeviceInfo> top10Devices = (List<DeviceInfo>)request.getAttribute("top10Devices");%>
-            <% for(int i = 0; i< top10Devices.size(); i++){ %>
-            <%System.out.println((i+1) + ". " + top10Devices.get(i).getBrand() + ", " + top10Devices.get(i).getModel());%><br/>
-            <%}%>
-        </h3>
-<%--        Full Log Information--%>
-        <h2>System Log...</h2>
-        <% List<String> logs = (List<String>) request.getAttribute("logs"); %>
-        <table>
-            <th>ID</th>
-            <th>Data</th>
-            </tr>
+        </div>
+        <div class="col">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Recent Service Latency(1-<%=serviceLatency.getRecentRecords().size()%>) (ms)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (int i = 0; i < serviceLatency.getRecentRecords().size(); i++) { %>
+                <tr>
+                    <td><%= serviceLatency.getRecentRecords().get(i) %>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+        <% Latency apiLatency = dashboard.getExternalAPILatency(); %>
+        <div class="col">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>External API Latency</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><strong>Average:</strong> <%=apiLatency.getAverage()%> ms</td>
+                </tr>
+                <tr>
+                    <td><strong>Maximum:</strong> <%=apiLatency.getMaximum()%> ms</td>
+                </tr>
+                <tr>
+                    <td><strong>Minimum:</strong> <%=apiLatency.getMinimum()%> ms</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Recent External API Latency(1-<%=apiLatency.getRecentRecords().size()%>) (ms)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (int i = 0; i < apiLatency.getRecentRecords().size(); i++) { %>
+                <tr>
+                    <td><%= apiLatency.getRecentRecords().get(i) %>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <h3>System Log</h3>
+        <table class="table" style="width:100%;">
+            <% List<SystemLog> logs = dashboard.getLogs(); %>
+            <thead>
             <tr>
-                <% for(int i = 0; i< logs.size(); i++){ %>
-                <td><%System.out.println(i+1);%></td>
-                <td><%= logs.get(i)%></td>
-                <%}%>
+                <th>#</th>
+                <th>Client Request Info</th>
+                <th>Client Response Info</th>
+                <th>Client Device Info</th>
+                <th>3rd Party Request Info</th>
+                <th>3rd Party Response Info</th>
             </tr>
+            </thead>
+            <tbody>
+            <% for (int i = 0; i < logs.size(); i++) { %>
+            <tr>
+                <td style="word-break:break-all;"><%=i + 1%>
+                </td>
+                <td style="word-break:break-all;"><%= logs.get(i).getClientRequest() %>
+                </td>
+                <td style="word-break:break-all;"><%= logs.get(i).getClientResponse() %>
+                </td>
+                <td style="word-break:break-all;"><%= logs.get(i).getClientDevice() %>
+                </td>
+                <td style="word-break:break-all;"><%= logs.get(i).getExternalAPIRequest() %>
+                </td>
+                <td style="word-break:break-all;"><%= logs.get(i).getExternalAPIResponse() %>
+                </td>
+            </tr>
+            <% } %>
+            </tbody>
         </table>
-    </body>
+    </div>
+    <% } %>
+</div>
+</body>
 </html>

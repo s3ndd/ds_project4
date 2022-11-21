@@ -3,62 +3,33 @@
  * AndrewID: lijuns, ichou
  * Email: lijuns@andrew.cmu.edu, ichou@andrew.cmu.edu
  * ProjectTask: Project4Task2
- *
+ * <p>
  * This is a class for dashboard service.
- *
  */
 
 package edu.cmu.andrew.project4task2webservice.service;
 
 import edu.cmu.andrew.project4task2webservice.model.Dashboard;
-import edu.cmu.andrew.project4task2webservice.model.DeviceInfo;
-import edu.cmu.andrew.project4task2webservice.model.Latency;
-
-import java.util.List;
+import edu.cmu.andrew.project4task2webservice.repository.LoggingRepository;
 
 public class DashboardService {
-    //create dashboard object
-    Dashboard dashboard = new Dashboard();
+    // inject the LoggingRepository
+    private LoggingRepository loggingRepository;
 
-    //get top 20 popular search keywords list
-    public List<String> getPopularKeyword() {
-        //list to store top twenty popular words
-        List<String> popularKeyword = dashboard.getTop20SearchWords();
-        return popularKeyword;
+    // build a DashboardService instance
+    public DashboardService() {
+        loggingRepository = new LoggingRepository();
     }
 
-    //get top 20 FIFs list
-    public List<String> getPopularGIFsURL() {
-        //list to store top twenty FIFs
-        List<String> popularGIFsURL = dashboard.getTop20GIFs();
-        return popularGIFsURL;
-    }
-
-    //get system service latency
-    public Latency getServiceLatency() {
-        //create latency object to store system data
-        Latency serviceLatency = dashboard.getServiceLatency();
-        return serviceLatency;
-    }
-
-    //get API service latency
-    public Latency getExternalAPILatency() {
-        //create latency object to store API data
-        Latency externalAPILatency = dashboard.getExternalAPILatency();
-        return externalAPILatency;
-    }
-
-    //get top 10 devices of frequent users
-    public List<DeviceInfo> getTop10Devices() {
-        //list to store top 10 devices
-        List<DeviceInfo> top10Devices = dashboard.getTop10Devices();
-        return top10Devices;
-    }
-
-    //get system logs
-    public List<String> getLogs() {
-        //list to store system logs
-        List<String> logs = dashboard.getLogs();
-        return logs;
+    // generateDashboard returns a Dashboard object which aggregates the analysis data
+    public Dashboard generateDashboard() {
+        Dashboard dashboard = new Dashboard();
+        dashboard.setTopSearchWords(loggingRepository.getTopSearchWords(5));
+        dashboard.setTopGIFs(loggingRepository.getTopGIFs(5));
+        dashboard.setServiceLatency(loggingRepository.getServiceLatency(5));
+        dashboard.setExternalAPILatency(loggingRepository.getExternalAPILatency(5));
+        dashboard.setTopDevices(loggingRepository.getTopDevices(5));
+        dashboard.setLogs(loggingRepository.getFormattedLogs(100));
+        return dashboard;
     }
 }

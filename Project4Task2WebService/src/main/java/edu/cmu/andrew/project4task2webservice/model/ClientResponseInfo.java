@@ -3,9 +3,8 @@
  * AndrewID: lijuns, ichou
  * Email: lijuns@andrew.cmu.edu, ichou@andrew.cmu.edu
  * ProjectTask: Project4Task2
- *
+ * <p>
  * This is a class for response information from client.
- *
  */
 
 package edu.cmu.andrew.project4task2webservice.model;
@@ -26,11 +25,11 @@ public class ClientResponseInfo {
     // the time of the response received
     private LocalTime time;
 
-    //constructor of ClientResponseInfo
+    // constructor of ClientResponseInfo
     public ClientResponseInfo() {
     }
 
-    //constructor of ClientResponseInfo with response content and status(e.g.200,404) input
+    // constructor of ClientResponseInfo with response content and status(e.g.200,404) input
     public ClientResponseInfo(IResponse responseBody, int responseStatusCode) {
         this.responseBody = responseBody;
         this.responseStatusCode = responseStatusCode;
@@ -38,42 +37,42 @@ public class ClientResponseInfo {
         this.time = LocalTime.now();
     }
 
-    //get response content
+    // get response content
     public IResponse getResponseBody() {
         return responseBody;
     }
 
-    //set response content
+    // set response content
     public void setResponseBody(IResponse responseBody) {
         this.responseBody = responseBody;
     }
 
-    //get status code
+    // get status code
     public int getResponseStatusCode() {
         return responseStatusCode;
     }
 
-    //set status code
+    // set status code
     public void setResponseStatusCode(int responseStatusCode) {
         this.responseStatusCode = responseStatusCode;
     }
 
-    //get date of the response
+    // get date of the response
     public LocalDate getDate() {
         return date;
     }
 
-    //set date of the response
+    // set date of the response
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    //get time of the response
+    // get time of the response
     public LocalTime getTime() {
         return time;
     }
 
-    //set time of the response
+    // set time of the response
     public void setTime(LocalTime time) {
         this.time = time;
     }
